@@ -54,8 +54,10 @@ public class Parser {
 	        } catch (IOException e) {
 	           e.printStackTrace();
 	        }
-	    
-
 	}
+		
+		public createRelations() {
+			
+		}
 
 }
