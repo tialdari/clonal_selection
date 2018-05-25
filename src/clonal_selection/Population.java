@@ -1,8 +1,15 @@
 package clonal_selection;
 
 import java.util.List;
+
+import java.util.Iterator;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Comparator;
+
 
 //class that creates a population of solutions
 public class Population {
@@ -29,19 +36,35 @@ public class Population {
 	public void createRandomPopulation(List<String> cabinetArrangement, int populationSize){
 		
 		int size = 0;
+		 boolean ifContinue = true;
+		List<ArrayList<String>> added = new ArrayList<ArrayList<String>>();
 		
 		Solution solution = new Solution(relations, cabinetArrangement);
-		 solution.cabinetArrangement(new ArrayList<>(solution.getCabinets()), new ArrayList<String>());
+		solution.cabinetArrangement(new ArrayList<>(solution.getCabinets()), new ArrayList<String>());
+		//System.out.println(solution.getPossibleSolution());
 		
-		while(size < populationSize) {
-			if(!population.contains(solution)) {
+		
+			while(size < populationSize) {
+				
+				if(added.contains(solution.getPossibleSolution())) {
+					//System.out.println("already here: " + solution.getPossibleSolution());
+					solution = new Solution(relations, cabinetArrangement);
+					solution.cabinetArrangement(new ArrayList<>(solution.getCabinets()), new ArrayList<String>());
+					continue;
+				}
+				
 				size++;
 				population.add(solution);
-				//System.out.println(possibleSolution);
+				added.add(solution.getPossibleSolution());
+				System.out.println(solution.getPossibleSolution());
+				
+				solution = new Solution(relations, cabinetArrangement);
+				solution.cabinetArrangement(new ArrayList<>(solution.getCabinets()), new ArrayList<String>());
+				//System.out.println(solution.getPossibleSolution());
+
 			}
-			solution = new Solution(relations, cabinetArrangement);
-			solution.cabinetArrangement(new ArrayList<>(solution.getCabinets()), new ArrayList<String>());
-		}
+		
+
 		System.out.println("size: " + size);
 		
 	}
@@ -62,28 +85,41 @@ public class Population {
 	}
 		
 	//counts the cloning factor for a solution in a population
-	public double cloningFactor(int ownPath, int averagePath) {
+	public double cloningFactor(Solution solution, int averagePath) {
 		
-		double factorNum = (double) averagePath / (double)ownPath;
+		double factorNum = (double) averagePath / (double) solution.getPath();
 		
+		solution.setCloningFactor(factorNum);
 		return factorNum;
 	}
+	
+	
 		
 	//creates a new population selecting better solutions from a given population
-	/*
-	public static class EntryKeyComparator implements Comparator<ArrayList<String>, Integer>{
+	
+	
+	public void sort() {
 		
-		public int compare(ArrayList<String> solution1,
-					ArrayList<String> solution2) {     
-			
-			int difference = Integer.compare(solution1., solution2.getKey().size());
 
-			if(difference != 0) return  difference;
+		Collections.sort(population, new SolutionComparator());
+		
+		
+	}
+	
+public static class SolutionComparator implements Comparator<Solution>{
+		
+		public int compare(Solution solution1, Solution solution2) {     
 			
-			//if the stops number is the same, compare by distance
-			else return Integer.compare(left.getValue(), right.getValue());
+		return  Double.compare(solution1.getCloningFactor(), solution2.getCloningFactor());
+
 		}
 	}
-	*/
+
+	public void print() {
+		
+		for(Solution sol : population) {
+		//	System.out.println(sol.getPossibleSolution());
+		}
+	}
 	
 }

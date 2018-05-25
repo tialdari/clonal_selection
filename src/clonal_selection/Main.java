@@ -2,6 +2,7 @@ package clonal_selection;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -54,7 +55,7 @@ public class Main {
 			System.out.println("");
 
 			
-			Solution functions = new Solution(frequencyRelations, parser.getCabinets());
+	//		Solution solution = new Solution(frequencyRelations, parser.getCabinets());
 			
 			//ArrayList<String> randomSetOut = new ArrayList<String>();
 		//	ArrayList<String> random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
@@ -64,13 +65,17 @@ public class Main {
 			//System.out.println("path: " + functions.countPath(random, frequencyRelations));
 
 			Population pop = new Population(frequencyRelations);
-			pop.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 3000);
-			System.out.println("averagePath: " + pop.countAveragePath());
+			pop.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 300);
+		//	System.out.println("averagePath: " + pop.countAveragePath());
 			
-			for(Solution solution : pop.getPopulation()) {
-				
-				System.out.println("factor: " + pop.cloningFactor(solution.countPath(solution.getPossibleSolution()), pop.countAveragePath()) + " ");
+			for(Solution sol : pop.getPopulation()) {
+				//System.out.println(sol.getPossibleSolution());
+				//pop.cloningFactor(sol, pop.countAveragePath());
+				//System.out.println(sol.getCloningFactor());
 			}
+			pop.sort();
+			pop.print();
+	
 			
 		}
 		

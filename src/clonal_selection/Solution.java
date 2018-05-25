@@ -3,7 +3,10 @@ package clonal_selection;
 import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Comparator;
+
 
 
 
@@ -11,7 +14,7 @@ import java.util.HashMap;
 public class Solution {
 	
 	private HashMap<String, HashMap<String, Integer>> frequencyRelations;
-	private int cloningFactor;
+	private double cloningFactor;
 	private ArrayList<String> possibleSolution;
 	private List<String> cabinets;
 	private int path;
@@ -29,11 +32,11 @@ public class Solution {
 	
 	
 
-	public int getCloningFactor() {
+	public double getCloningFactor() {
 		return cloningFactor;
 	}
 
-	public void setCloningFactor(int cloningFactor) {
+	public void setCloningFactor(double cloningFactor) {
 		this.cloningFactor = cloningFactor;
 	}
 	
@@ -138,6 +141,7 @@ public class Solution {
 			}
 		}
 		
+		setPath(path);
 		return path;
 	}
 	
@@ -149,4 +153,7 @@ public class Solution {
 		int mutationFactor = averagePath / givenPath;
 		return mutationFactor;
 	}
+	
+	
+	
 }
