@@ -11,12 +11,64 @@ import java.util.HashMap;
 public class Solution {
 	
 	private HashMap<String, HashMap<String, Integer>> frequencyRelations;
+	private int cloningFactor;
+	private ArrayList<String> possibleSolution;
+	private List<String> cabinets;
+	private int path;
+	
+	
 
-
-	public Solution (HashMap<String, HashMap<String, Integer>> frequencyRelations) {
+	public Solution (HashMap<String, HashMap<String, Integer>> frequencyRelations, List<String> cabinets) {
 		this.frequencyRelations = frequencyRelations;
+		this.cabinets = cabinets;
+		cloningFactor = 0;
+		possibleSolution = new ArrayList<String>();
+		path = 0;
 	}
 	
+	
+	
+
+	public int getCloningFactor() {
+		return cloningFactor;
+	}
+
+	public void setCloningFactor(int cloningFactor) {
+		this.cloningFactor = cloningFactor;
+	}
+	
+
+	public ArrayList<String> getPossibleSolution() {
+		return possibleSolution;
+	}
+
+
+	public void setPossibleSolution(ArrayList<String> possibleSolution) {
+		this.possibleSolution = possibleSolution;
+	}
+	
+
+	public List<String> getCabinets() {
+		return cabinets;
+	}
+
+
+	public void setCabinets(List<String> cabinets) {
+		this.cabinets = cabinets;
+	}
+
+
+	public int getPath() {
+		return path;
+	}
+
+
+	public void setPath(int path) {
+		this.path = path;
+	}
+	
+	
+
 
 	//creates a random cabinet arrangement
 	//abc and cba cases are counted as two or 1?
@@ -25,7 +77,10 @@ public class Solution {
 	public ArrayList<String> cabinetArrangement(List<String> cabinets, ArrayList<String> randomArrangement) {
 		
 		//if all letters are moved to the new list, leave the method
-		if(cabinets.size() == 0) return randomArrangement;
+		if(cabinets.size() == 0) {
+			setPossibleSolution(randomArrangement);
+			return possibleSolution;
+		}
 		
 		Random r = new Random();
 		int random = r.nextInt(cabinets.size());

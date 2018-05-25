@@ -54,7 +54,7 @@ public class Main {
 			System.out.println("");
 
 			
-			Solution functions = new Solution(frequencyRelations);
+			Solution functions = new Solution(frequencyRelations, parser.getCabinets());
 			
 			//ArrayList<String> randomSetOut = new ArrayList<String>();
 		//	ArrayList<String> random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
@@ -67,9 +67,9 @@ public class Main {
 			pop.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 3000);
 			System.out.println("averagePath: " + pop.countAveragePath());
 			
-			for(ArrayList<String> solution : pop.getPopulation()) {
+			for(Solution solution : pop.getPopulation()) {
 				
-				System.out.println("factor: " + pop.cloningFactor(functions.countPath(solution), pop.countAveragePath()) + " ");
+				System.out.println("factor: " + pop.cloningFactor(solution.countPath(solution.getPossibleSolution()), pop.countAveragePath()) + " ");
 			}
 			
 		}

@@ -7,24 +7,21 @@ import java.util.HashMap;
 //class that creates a population of solutions
 public class Population {
 			
-	private ArrayList<ArrayList<String>> population;
-	private Solution functions;
+	private ArrayList<Solution> population;
 	private HashMap<String, HashMap<String, Integer>> relations;
 	
-	
 		
-	public ArrayList<ArrayList<String>> getPopulation() {
+	public ArrayList<Solution> getPopulation() {
 		return population;
 	}
 
-	public void setPopulation(ArrayList<ArrayList<String>> population) {
+	public void setPopulation(ArrayList<Solution> population) {
 		this.population = population;
 	}
 	
 	public Population(HashMap<String, HashMap<String, Integer>> relations ) {
-		population = new ArrayList<ArrayList<String>>();
+		population = new ArrayList<Solution>();
 		this.relations = relations;
-		functions = new Solution(relations);
 
 		
 	}
@@ -32,16 +29,18 @@ public class Population {
 	public void createRandomPopulation(List<String> cabinetArrangement, int populationSize){
 		
 		int size = 0;
-
-		ArrayList<String> possibleSolution = functions.cabinetArrangement(new ArrayList<>(cabinetArrangement), new ArrayList<String>());
+		
+		Solution solution = new Solution(relations, cabinetArrangement);
+		 solution.cabinetArrangement(new ArrayList<>(solution.getCabinets()), new ArrayList<String>());
 		
 		while(size < populationSize) {
-			if(!population.contains(possibleSolution)) {
+			if(!population.contains(solution)) {
 				size++;
-				population.add(possibleSolution);
+				population.add(solution);
 				//System.out.println(possibleSolution);
 			}
-			possibleSolution = functions.cabinetArrangement(new ArrayList<>(cabinetArrangement), new ArrayList<String>());
+			solution = new Solution(relations, cabinetArrangement);
+			solution.cabinetArrangement(new ArrayList<>(solution.getCabinets()), new ArrayList<String>());
 		}
 		System.out.println("size: " + size);
 		
@@ -53,9 +52,9 @@ public class Population {
 		int summedPath = 0;
 		int averagePath = 0;
 
-		for(ArrayList<String> possibleSolution : population) {
+		for(Solution solution : population) {
 
-			summedPath += functions.countPath(possibleSolution);
+			summedPath += solution.countPath(solution.getPossibleSolution());
 		}
 		averagePath = summedPath / population.size();
 		
@@ -71,6 +70,20 @@ public class Population {
 	}
 		
 	//creates a new population selecting better solutions from a given population
-	
+	/*
+	public static class EntryKeyComparator implements Comparator<ArrayList<String>, Integer>{
+		
+		public int compare(ArrayList<String> solution1,
+					ArrayList<String> solution2) {     
+			
+			int difference = Integer.compare(solution1., solution2.getKey().size());
+
+			if(difference != 0) return  difference;
+			
+			//if the stops number is the same, compare by distance
+			else return Integer.compare(left.getValue(), right.getValue());
+		}
+	}
+	*/
 	
 }
