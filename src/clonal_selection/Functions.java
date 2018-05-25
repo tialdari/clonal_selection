@@ -15,24 +15,27 @@ public class Functions {
 	//randomArrangement passed as the argument is an empty list
 	public List<String> cabinetArrangement(List<String> cabinets, List<String> randomArrangement) {
 		
+		//if all letters are moved to the new list, leave the method
 		if(cabinets.size() == 0) return randomArrangement;
 		
 		Random r = new Random();
 		int random = r.nextInt(cabinets.size());
 		
+		//when one randomly chosen letter is added to a new list, 
 		randomArrangement.add(cabinets.get(random));
+		//it's removed from the cabinet list(letters to choose from)
 		cabinets.remove(random);
+		//we call the method recursively, to choose another letter
+		//from the decreased list
 		cabinetArrangement(cabinets, randomArrangement);
 		
 		return randomArrangement;
 		
 	}
 	
-	
-	
-	
+
 	//counts the overall road to cross between cabinets for the given solution
-	public int countPath() {
+	public int countPath(List<String> solution) {
 		int path = 0;
 		return path;
 	}

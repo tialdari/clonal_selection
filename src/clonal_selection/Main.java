@@ -9,7 +9,7 @@ public class Main {
 			
 			System.out.println("Clonal selection algorytm");
 			Parser parser = new Parser("test.csv");
-			List<FrequencyRelation> frequencyRelations = parser.createRelations(parser.read(), parser.getDataSize());
+		 parser.createRelations(parser.read(), parser.getDataSize());
 			parser.createCabinets();
 			System.out.println("");
 
