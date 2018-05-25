@@ -1,6 +1,7 @@
 package clonal_selection;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -12,8 +13,35 @@ public class Main {
 			parser.createCabinets();
 			System.out.println("");
 
-			for(int i = 0; i < parser.getCabinets().length; i++) {
-				System.out.print(parser.getCabinets()[i]);
-			}
+			
+			Functions functions = new Functions();
+			
+			List<String> randomSetOut = new ArrayList<String>();
+			List<String> random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
+			System.out.println(random);
+			
+			randomSetOut = new ArrayList<String>();
+			random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
+			System.out.println(random);
+
+			randomSetOut = new ArrayList<String>();
+			random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
+			System.out.println(random);
+
+			randomSetOut = new ArrayList<String>();
+			random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
+			System.out.println(random);
+
+			randomSetOut = new ArrayList<String>();
+			random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
+			System.out.println(random);
+
+			randomSetOut = new ArrayList<String>();
+			random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
+			System.out.println(random);
+
+			
+	
 		}
+		
 }

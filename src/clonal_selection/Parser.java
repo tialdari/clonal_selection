@@ -13,7 +13,7 @@ public class Parser {
 	  
 		private String csvFileName;
 		private int dataSize;
-		private String [] cabinets;
+		private List<String> cabinets;
 		
 		public Parser() {
 			csvFileName = "z5data.csv";
@@ -35,11 +35,11 @@ public class Parser {
 		}
 
 		
-		public String[] getCabinets() {
+		public List<String> getCabinets() {
 			return cabinets;
 		}
 
-		public void setCabinets(String[] cabinets) {
+		public void setCabinets(List<String> cabinets) {
 			this.cabinets = cabinets;
 		}
 
@@ -81,7 +81,6 @@ public class Parser {
 			int lineLength = (int) Math.sqrt(size) - 1;
 			
 			//creates an array of size of a single line from input matrix(number of different cabinets)
-			setCabinets(new String [lineLength + 1]);
 			int omitCounter = 0;
 			int counter1 = 0;
 			int counter2 = 0;
@@ -130,12 +129,11 @@ public class Parser {
 		
 		public void createCabinets() {
 			
-			String [] demoCabinets = new String [cabinets.length];
-			
+			List<String> demoCabinets = new ArrayList<String>();
 			char cabinetLetter = 97;
 			
-			for(int i = 0; i < cabinets.length; i++) {
-				demoCabinets[i] = String.valueOf(cabinetLetter);
+			for(int i = 0; i < Math.sqrt(getDataSize()); i++) {
+				demoCabinets.add(String.valueOf(cabinetLetter)); 
 				cabinetLetter++;
 			}
 			
