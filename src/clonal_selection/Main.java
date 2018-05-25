@@ -50,23 +50,25 @@ public class Main {
 			parser.createCabinets();
 			System.out.println("");
 
-			/*
-			Functions functions = new Functions();
 			
-			ArrayList<String> randomSetOut = new ArrayList<String>();
-			ArrayList<String> random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
-			System.out.println(random);
-			*/
+			Functions functions = new Functions(frequencyRelations);
+			
+			//ArrayList<String> randomSetOut = new ArrayList<String>();
+		//	ArrayList<String> random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
+		//	System.out.println(random);
+			
 			
 			//System.out.println("path: " + functions.countPath(random, frequencyRelations));
 
 			Population pop = new Population(frequencyRelations);
-			pop.createPopulation(new ArrayList<String>(parser.getCabinets()), 20);
-			//System.out.println(frequencyRelations)
-
+			pop.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 3000);
 			System.out.println("averagePath: " + pop.countAveragePath());
 			
-	
+			for(ArrayList<String> solution : pop.getPopulation()) {
+				
+				System.out.println("factor: " + pop.cloningFactor(functions.countPath(solution), pop.countAveragePath()) + " ");
+			}
+			
 		}
 		
 }

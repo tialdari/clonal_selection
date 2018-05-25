@@ -12,13 +12,6 @@ public class Population {
 	private HashMap<String, HashMap<String, Integer>> relations;
 	
 	
-	public Functions getFunctions() {
-		return functions;
-	}
-
-	public void setFunctions(Functions functions) {
-		this.functions = functions;
-	}
 		
 	public ArrayList<ArrayList<String>> getPopulation() {
 		return population;
@@ -26,14 +19,6 @@ public class Population {
 
 	public void setPopulation(ArrayList<ArrayList<String>> population) {
 		this.population = population;
-	}
-
-	public HashMap<String, HashMap<String, Integer>> getRelations() {
-		return relations;
-	}
-
-	public void setFrequencyRelations(HashMap<String, HashMap<String, Integer>> relations) {
-		this.relations = relations;
 	}
 	
 	public Population(HashMap<String, HashMap<String, Integer>> relations ) {
@@ -44,7 +29,7 @@ public class Population {
 		
 	}
 
-	public void createPopulation(List<String> cabinetArrangement, int populationSize){
+	public void createRandomPopulation(List<String> cabinetArrangement, int populationSize){
 		
 		int size = 0;
 
@@ -54,7 +39,7 @@ public class Population {
 			if(!population.contains(possibleSolution)) {
 				size++;
 				population.add(possibleSolution);
-				System.out.println(possibleSolution);
+				//System.out.println(possibleSolution);
 			}
 			possibleSolution = functions.cabinetArrangement(new ArrayList<>(cabinetArrangement), new ArrayList<String>());
 		}
@@ -62,7 +47,7 @@ public class Population {
 		
 	}
 	
-	//counts the average of results of all the solutions
+	//counts the average of results of all the solutions in a population
 	public int countAveragePath() {
 		
 		int summedPath = 0;
@@ -77,6 +62,15 @@ public class Population {
 		return averagePath;
 	}
 		
+	//counts the cloning factor for a solution in a population
+	public double cloningFactor(int ownPath, int averagePath) {
 		
+		double factorNum = (double) averagePath / (double)ownPath;
+		
+		return factorNum;
+	}
+		
+	//creates a new population selecting better solutions from a given population
+	
 	
 }

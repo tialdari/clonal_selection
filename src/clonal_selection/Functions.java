@@ -18,17 +18,6 @@ public class Functions {
 	}
 	
 
-	public HashMap<String, HashMap<String, Integer>> getFrequencyRelations() {
-		return frequencyRelations;
-	}
-
-
-	public void setFrequencyRelations(HashMap<String, HashMap<String, Integer>> frequencyRelations) {
-
-		this.frequencyRelations = frequencyRelations;
-
-	}
-
 	//creates a random cabinet arrangement
 	//abc and cba cases are counted as two or 1?
 	//as the argument the method gets a copy of the original cabinet list
