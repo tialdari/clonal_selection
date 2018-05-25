@@ -2,6 +2,8 @@ package clonal_selection;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Main {
 
@@ -9,7 +11,8 @@ public class Main {
 			
 			System.out.println("Clonal selection algorytm");
 			Parser parser = new Parser("test.csv");
-		 parser.createRelations(parser.read(), parser.getDataSize());
+			parser.createRelations(parser.read(), parser.getDataSize());
+			HashMap<String, HashMap<String, Integer>> frequencyRelations = parser.getFrequencyRelations();
 			parser.createCabinets();
 			System.out.println("");
 
@@ -20,25 +23,7 @@ public class Main {
 			List<String> random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
 			System.out.println(random);
 			
-			randomSetOut = new ArrayList<String>();
-			random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
-			System.out.println(random);
-
-			randomSetOut = new ArrayList<String>();
-			random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
-			System.out.println(random);
-
-			randomSetOut = new ArrayList<String>();
-			random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
-			System.out.println(random);
-
-			randomSetOut = new ArrayList<String>();
-			random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
-			System.out.println(random);
-
-			randomSetOut = new ArrayList<String>();
-			random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
-			System.out.println(random);
+			System.out.println("path: " + functions.countPath(random, frequencyRelations));
 
 			
 	

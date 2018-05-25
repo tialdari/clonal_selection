@@ -15,17 +15,19 @@ public class Parser {
 	  
 		private String csvFileName;
 		private int dataSize;
-		private Map<String, Map<String, Integer>> frequencyRelations;
+		private HashMap<String, HashMap<String, Integer>> frequencyRelations;
 		private List<String> cabinets;
 		
 		public Parser() {
 			csvFileName = "z5data.csv";
 			dataSize = 0;
+			frequencyRelations = new HashMap<String, HashMap<String, Integer>>();
 		}
 		
 		public Parser(String csvFileName) {
 			this.csvFileName = csvFileName;
 			dataSize = 0;
+			frequencyRelations = new HashMap<String, HashMap<String, Integer>>();
 		}
 		
 	
@@ -47,11 +49,11 @@ public class Parser {
 		}
 
 		
-		public Map<String, Map<String, Integer>> getFrequencyRelations() {
+		public HashMap<String, HashMap<String, Integer>> getFrequencyRelations() {
 			return frequencyRelations;
 		}
 
-		public void setFrequencyRelations(Map<String, Map<String, Integer>> frequencyRelations) {
+		public void setFrequencyRelations(HashMap<String, HashMap<String, Integer>> frequencyRelations) {
 			this.frequencyRelations = frequencyRelations;
 		}
 
@@ -86,7 +88,7 @@ public class Parser {
 	}
 		
 		//creates both way frequency relations between cabinets and puts them into an arrayList
-		public Map<String, Map<String, Integer>> createRelations(List<Integer> numbers, int size) {
+		public HashMap<String, HashMap<String, Integer>> createRelations(List<Integer> numbers, int size) {
 			
 			
 			int lineLength = (int) Math.sqrt(size) - 1;
@@ -138,25 +140,25 @@ public class Parser {
 		}
 		
 		
-		public void add(Map<String, Map<String, Integer>> frequencyRelations, String letter1, String letter2, int frequency) {
+		public void add(HashMap<String, HashMap<String, Integer>> frequencyRelations, String letter1, String letter2, int frequency) {
 			
 			if(frequencyRelations.containsKey(letter1)) {
-    			frequencyRelations.get(letter1).put(letter2, frequency);
-		}else {
-			//if not, we put a new key(the letter) first
-			frequencyRelations.put(letter1, new HashMap<String, Integer>());
-			frequencyRelations.get(letter1).put(letter2, frequency);
-		}
-    
-
-		//since the relations work both ways, we repeat the action for the second letter
-		if(frequencyRelations.containsKey(letter2)) {
-			frequencyRelations.get(letter2).put(letter1, frequency);
-		}else {
-
-			frequencyRelations.put(letter2, new HashMap<String, Integer>());
-			frequencyRelations.get(letter2).put(letter1, frequency);
-		}
+	    			frequencyRelations.get(letter1).put(letter2, frequency);
+			}else {
+				//if not, we put a new key(the letter) first
+				frequencyRelations.put(letter1, new HashMap<String, Integer>());
+				frequencyRelations.get(letter1).put(letter2, frequency);
+			}
+	    
+	
+			//since the relations work both ways, we repeat the action for the second letter
+			if(frequencyRelations.containsKey(letter2)) {
+				frequencyRelations.get(letter2).put(letter1, frequency);
+			}else {
+	
+				frequencyRelations.put(letter2, new HashMap<String, Integer>());
+				frequencyRelations.get(letter2).put(letter1, frequency);
+			}
 		}
 		
 		public void createCabinets() {

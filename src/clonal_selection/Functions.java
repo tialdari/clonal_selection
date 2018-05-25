@@ -3,6 +3,8 @@ package clonal_selection;
 import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 
 
 //contains functions to count results for the individuals of the given population
@@ -35,8 +37,31 @@ public class Functions {
 	
 
 	//counts the overall road to cross between cabinets for the given solution
-	public int countPath(List<String> solution) {
+	public int countPath(List<String> solution, HashMap<String, HashMap<String, Integer>> frequencyRelations) {
+		
 		int path = 0;
+		int distance = 1;
+		int cabinet1Index = 0;
+		int cabinet2Index = 1;
+		String letter1;
+		String letter2;
+		int frequency;
+
+		
+		while(cabinet1Index < solution.size() - 2) {
+			
+			letter1 = solution.get(cabinet1Index);
+			letter2 = solution.get(cabinet2Index);
+			frequency = frequencyRelations.get(letter1).get(letter2).intValue();
+			
+			path += distance * frequency;
+			cabinet2Index++;
+			if(cabinet2Index == solution.size() - 1) {
+				cabinet1Index++;
+				cabinet2Index = cabinet1Index + 1;
+			}
+		}
+		
 		return path;
 	}
 	
