@@ -53,12 +53,14 @@ public class Main {
 			
 			Functions functions = new Functions();
 			
-			List<String> randomSetOut = new ArrayList<String>();
-			List<String> random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
+			ArrayList<String> randomSetOut = new ArrayList<String>();
+			ArrayList<String> random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
 			System.out.println(random);
 			
-			System.out.println("path: " + functions.countPath(random, frequencyRelations));
-			
+			//System.out.println("path: " + functions.countPath(random, frequencyRelations));
+			 
+			Population pop = new Population();
+			pop.createPopulation(new ArrayList<String>(parser.getCabinets()), 1000);
 			
 	
 		}

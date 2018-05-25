@@ -15,7 +15,7 @@ public class Functions {
 	//abc and cba cases are counted as two or 1?
 	//as the argument the method gets a copy of the original cabinet list
 	//randomArrangement passed as the argument is an empty list
-	public List<String> cabinetArrangement(List<String> cabinets, List<String> randomArrangement) {
+	public ArrayList<String> cabinetArrangement(List<String> cabinets, ArrayList<String> randomArrangement) {
 		
 		//if all letters are moved to the new list, leave the method
 		if(cabinets.size() == 0) return randomArrangement;
@@ -80,8 +80,16 @@ public class Functions {
 	}
 	
 	//counts the average of results of all the solutions
-	public int countAveragePath(ArrayList<String> solutions) {
+	public int countAveragePath(List<ArrayList<String>> population, HashMap<String, HashMap<String, Integer>> frequencyRelations) {
+		
+		int summedPath = 0;
 		int averagePath = 0;
+
+		for(ArrayList<String> possibleSolution : population) {
+			summedPath = countPath(possibleSolution, frequencyRelations);
+		}
+		averagePath = summedPath / population.size();
+		
 		return averagePath;
 	}
 	

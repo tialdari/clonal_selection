@@ -8,17 +8,30 @@ public class Population {
 			
 	
 	
-	public List<ArrayList<String>> createPopulation(ArrayList<String> possibleSolution, int populationSize){
+	public ArrayList<ArrayList<String>> createPopulation(List<String> cabinetArrangement, int populationSize){
 		
-		List<ArrayList<String>> population = new ArrayList<ArrayList<String>>();
+		int size = 0;
+		Functions functions = new Functions();
 		
-		for(int i = 0; i < populationSize; i ++) {
+		ArrayList<ArrayList<String>> population = new ArrayList<ArrayList<String>>();
+		
+		ArrayList<String> possibleSolution = functions.cabinetArrangement(new ArrayList<>(cabinetArrangement), new ArrayList<String>());
+		
+		while(size < populationSize) {
 			if(!population.contains(possibleSolution)) {
+				size++;
 				population.add(possibleSolution);
+				System.out.println(possibleSolution);
 			}
+			possibleSolution = functions.cabinetArrangement(new ArrayList<>(cabinetArrangement), new ArrayList<String>());
 		}
-		
+		System.out.println("size: " + size);
 		return population;
 		
 	}
+	
+	//public int averagePopulationPath(List<String> population) {
+		
+		
+	//}
 }
