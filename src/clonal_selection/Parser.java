@@ -13,6 +13,7 @@ public class Parser {
 	  
 		private String csvFileName;
 		private int dataSize;
+		private String [] cabinets;
 		
 		public Parser() {
 			csvFileName = "z5data.csv";
@@ -34,6 +35,14 @@ public class Parser {
 		}
 
 		
+		public String[] getCabinets() {
+			return cabinets;
+		}
+
+		public void setCabinets(String[] cabinets) {
+			this.cabinets = cabinets;
+		}
+
 		//reads numbers from the file omitting "x" and puts them into an arrayList
 		public List<Integer> read() {
 			
@@ -70,6 +79,9 @@ public class Parser {
 			List<FrequencyRelation> frequencyRelations = new ArrayList<FrequencyRelation>();
 			
 			int lineLength = (int) Math.sqrt(size) - 1;
+			
+			//creates an array of size of a single line from input matrix(number of different cabinets)
+			setCabinets(new String [lineLength + 1]);
 			int omitCounter = 0;
 			int counter1 = 0;
 			int counter2 = 0;
@@ -82,12 +94,13 @@ public class Parser {
 			Iterator<Integer> iterator = numbers.iterator();
 			int frequency = iterator.next();
 			
+			
+			//change it for 2D array!
 			while(iterator.hasNext()) {
 				
 				while(counter1 < lineLength) {
 					frequencyRelations.add(new FrequencyRelation(letter1, letter2, frequency));
 					frequencyRelations.add(new FrequencyRelation(letter2, letter1, frequency));
-					System.out.print(letter1 + letter2 + frequency + " ");
 					counter1++;
 					leter1++;
 					letter1 = String.valueOf(leter1);
@@ -107,14 +120,26 @@ public class Parser {
 				omitCounter++;
 				counter2 = 0;
 				leter2++;
-				letter2 = String.valueOf(leter2);
-				
-				System.out.println("");
+				letter2 = String.valueOf(leter2);				
 			}
 			
 			
 			return frequencyRelations;
 			
+		}
+		
+		public void createCabinets() {
+			
+			String [] demoCabinets = new String [cabinets.length];
+			
+			char cabinetLetter = 97;
+			
+			for(int i = 0; i < cabinets.length; i++) {
+				demoCabinets[i] = String.valueOf(cabinetLetter);
+				cabinetLetter++;
+			}
+			
+			setCabinets(demoCabinets);
 		}
 
 }
