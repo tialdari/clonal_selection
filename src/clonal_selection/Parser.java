@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Map;
 import java.util.HashMap;
 
 //reads data from a file and puts them into an arrayList for further processing
