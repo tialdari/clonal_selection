@@ -1,4 +1,4 @@
-package clonal_selection;
+package data;
 
 import java.util.List;
 import java.util.ArrayList;

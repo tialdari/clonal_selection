@@ -8,12 +8,12 @@ import java.util.HashMap;
 
 
 //contains functions to count results for the individuals of the given population
-public class Functions {
+public class Solution {
 	
 	private HashMap<String, HashMap<String, Integer>> frequencyRelations;
 
 
-	public Functions (HashMap<String, HashMap<String, Integer>> frequencyRelations) {
+	public Solution (HashMap<String, HashMap<String, Integer>> frequencyRelations) {
 		this.frequencyRelations = frequencyRelations;
 	}
 	

@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class Population {
 			
 	private ArrayList<ArrayList<String>> population;
-	private Functions functions;
+	private Solution functions;
 	private HashMap<String, HashMap<String, Integer>> relations;
 	
 	
@@ -24,7 +24,7 @@ public class Population {
 	public Population(HashMap<String, HashMap<String, Integer>> relations ) {
 		population = new ArrayList<ArrayList<String>>();
 		this.relations = relations;
-		functions = new Functions(relations);
+		functions = new Solution(relations);
 
 		
 	}

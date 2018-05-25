@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Map.Entry;
+
+import data.Parser;
+
 import java.util.Iterator;
 
 
@@ -51,7 +54,7 @@ public class Main {
 			System.out.println("");
 
 			
-			Functions functions = new Functions(frequencyRelations);
+			Solution functions = new Solution(frequencyRelations);
 			
 			//ArrayList<String> randomSetOut = new ArrayList<String>();
 		//	ArrayList<String> random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
