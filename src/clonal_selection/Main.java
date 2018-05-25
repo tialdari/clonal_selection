@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Iterator;
+
+
 
 public class Main {
 
@@ -13,6 +17,36 @@ public class Main {
 			Parser parser = new Parser("test.csv");
 			parser.createRelations(parser.read(), parser.getDataSize());
 			HashMap<String, HashMap<String, Integer>> frequencyRelations = parser.getFrequencyRelations();
+			
+			
+			/*
+
+				Iterator<Entry<String, HashMap<String, Integer>>> iter = frequencyRelations.entrySet().iterator();
+				Map.Entry<String, HashMap<String, Integer>> relations;
+				
+		        System.out.println("");
+
+		        int number = 0;
+		        
+				while(iter.hasNext()) {
+					number++;
+					if(number == 7) {
+						System.out.println("");
+					}
+			        relations = (Map.Entry<String, HashMap<String, Integer>>)iter.next();
+					
+			        
+					  Iterator<Entry<String, Integer>> innerIterator = frequencyRelations.get(relations.getKey()).entrySet().iterator(); 
+					  Map.Entry<String, Integer> relations2;
+					  
+					  while(innerIterator.hasNext()) {
+						  relations2 = innerIterator.next();
+
+						  System.out.println(relations.getKey() + "-" + relations2.getKey() + " = " + relations2.getValue());
+					  }
+				}
+				*/
+			
 			parser.createCabinets();
 			System.out.println("");
 
@@ -24,7 +58,7 @@ public class Main {
 			System.out.println(random);
 			
 			System.out.println("path: " + functions.countPath(random, frequencyRelations));
-
+			
 			
 	
 		}
