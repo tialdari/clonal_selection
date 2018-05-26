@@ -65,7 +65,7 @@ public class Main {
 			//System.out.println("path: " + functions.countPath(random, frequencyRelations));
 
 			Population pop = new Population(frequencyRelations);
-			pop.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 1000);
+			pop.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 6);
 		//	System.out.println("averagePath: " + pop.countAveragePath());
 			
 			for(Solution sol : pop.getPopulation()) {

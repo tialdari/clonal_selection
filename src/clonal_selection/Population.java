@@ -70,43 +70,41 @@ public class Population {
 	}
 	
 	//counts the average of results of all the solutions in a population
-	public int countAveragePath() {
+	public double countAveragePath() {
 		
 		int summedPath = 0;
-		int averagePath = 0;
+		double averagePath = 0;
+		
 
 		for(Solution solution : population) {
 
 			summedPath += solution.countPath(solution.getPossibleSolution());
 		}
-		averagePath = summedPath / population.size();
+		averagePath = (double) summedPath / (double) population.size();
 		
+		System.out.println("average path: " + averagePath);
 		return averagePath;
 	}
 		
 	//counts the cloning factor for a solution in a population
-	public double cloningFactor(Solution solution, int averagePath) {
+	public double cloningFactor(Solution solution, double averagePath) {
 		
-		double factorNum = (double) averagePath / (double) solution.getPath();
+		double factorNum = averagePath / (double) solution.getPath();
 		
 		solution.setCloningFactor(factorNum);
 		return factorNum;
 	}
 	
-	
-		
+
 	//creates a new population selecting better solutions from a given population
 	
-	
+	//sorts a population by the cloning factor
 	public void sort() {
-		
-
 		Collections.sort(population, new SolutionComparator());
-		
-		
 	}
 	
-public static class SolutionComparator implements Comparator<Solution>{
+	//enables sorting a population by a cloning factor
+	public static class SolutionComparator implements Comparator<Solution>{
 		
 		public int compare(Solution solution1, Solution solution2) {     
 			
