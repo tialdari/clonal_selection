@@ -59,6 +59,8 @@ public class Population {
 				
 				size++;
 				population.add(solution);
+				//System.out.println(solution.getPossibleSolution() + " " + solution.getCloningFactor());
+
 				added.add(solution.getPossibleSolution());
 				
 				solution = new Solution(relations, cabinetArrangement);
@@ -80,6 +82,8 @@ public class Population {
 		for(Solution solution : previousPopulation.getPopulation()) {
 			if(solution.getCloningFactor() < 1.0) break;
 			population.add(solution);
+		//	System.out.println(solution.getPossibleSolution() + " " + solution.getCloningFactor());
+
 			currentSize++;
 		}
 		if(currentSize <= populationSize) {
@@ -88,6 +92,12 @@ public class Population {
 		
 		System.out.println("current size: " + currentSize);
 		createRandomPopulation(previousPopulation.getCabinetArrangement(), randomPopulationSize);
+		for(Solution sol : population) {
+		//	System.out.println(sol.getPossibleSolution() + " " + sol.getCloningFactor());
+		}
+	//	System.out.println("size : " + population.size());
+		
+		
 	}
 	
 	//counts the average of results of all the solutions in a population
@@ -96,7 +106,6 @@ public class Population {
 		int summedPath = 0;
 		double averagePath = 0;
 		
-
 		for(Solution solution : population) {
 
 			summedPath += solution.countPath(solution.getPossibleSolution());

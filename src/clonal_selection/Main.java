@@ -32,10 +32,22 @@ public class Main {
 				pop.cloningFactor(sol, averagePath);
 			}
 			pop.sort();
-		//	pop.print();
+			//pop.print();
 			
 			Population population1 = new Population(frequencyRelations, parser.getCabinets());
 			population1.createSelectedPopulation(pop, 600);
+			double averagePath1 = population1.countAveragePath();
+			for(Solution sol : population1.getPopulation()) {
+				population1.cloningFactor(sol, averagePath1);
+			}
+			population1.sort();
+
+			for(Solution sol : population1.getPopulation()) {
+				//System.out.println(sol.getPossibleSolution() + " " + sol.getCloningFactor());
+			}
+			System.out.println("size : " + population1.getPopulation().size());
+			population1.print();
+
 	
 			
 		}
