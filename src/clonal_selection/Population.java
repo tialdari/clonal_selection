@@ -56,7 +56,7 @@ public class Population {
 				size++;
 				population.add(solution);
 				added.add(solution.getPossibleSolution());
-				System.out.println(solution.getPossibleSolution());
+			//	System.out.println(solution.getPossibleSolution());
 				
 				solution = new Solution(relations, cabinetArrangement);
 				solution.cabinetArrangement(new ArrayList<>(solution.getCabinets()), new ArrayList<String>());
@@ -118,7 +118,7 @@ public static class SolutionComparator implements Comparator<Solution>{
 	public void print() {
 		
 		for(Solution sol : population) {
-		//	System.out.println(sol.getPossibleSolution());
+			System.out.println(sol.getPossibleSolution() + " " + sol.getCloningFactor());
 		}
 	}
 	

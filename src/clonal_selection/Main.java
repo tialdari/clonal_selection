@@ -65,13 +65,13 @@ public class Main {
 			//System.out.println("path: " + functions.countPath(random, frequencyRelations));
 
 			Population pop = new Population(frequencyRelations);
-			pop.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 300);
+			pop.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 1000);
 		//	System.out.println("averagePath: " + pop.countAveragePath());
 			
 			for(Solution sol : pop.getPopulation()) {
-				//System.out.println(sol.getPossibleSolution());
-				//pop.cloningFactor(sol, pop.countAveragePath());
-				//System.out.println(sol.getCloningFactor());
+			//	System.out.print(sol.getPossibleSolution() + " ");
+				pop.cloningFactor(sol, pop.countAveragePath());
+			//	System.out.print(" " + sol.getCloningFactor() + "\n");
 			}
 			pop.sort();
 			pop.print();
