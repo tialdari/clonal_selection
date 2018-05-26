@@ -1,8 +1,6 @@
 package clonal_selection;
 
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -11,7 +9,7 @@ import data.Parser;
 
 import java.util.Iterator;
 
-
+	
 
 public class Main {
 
@@ -22,60 +20,53 @@ public class Main {
 			parser.createRelations(parser.read(), parser.getDataSize());
 			HashMap<String, HashMap<String, Integer>> frequencyRelations = parser.getFrequencyRelations();
 			
-			
-			/*
-
-				Iterator<Entry<String, HashMap<String, Integer>>> iter = frequencyRelations.entrySet().iterator();
-				Map.Entry<String, HashMap<String, Integer>> relations;
-				
-		        System.out.println("");
-
-		        int number = 0;
-		        
-				while(iter.hasNext()) {
-					number++;
-					if(number == 7) {
-						System.out.println("");
-					}
-			        relations = (Map.Entry<String, HashMap<String, Integer>>)iter.next();
-					
-			        
-					  Iterator<Entry<String, Integer>> innerIterator = frequencyRelations.get(relations.getKey()).entrySet().iterator(); 
-					  Map.Entry<String, Integer> relations2;
-					  
-					  while(innerIterator.hasNext()) {
-						  relations2 = innerIterator.next();
-
-						  System.out.println(relations.getKey() + "-" + relations2.getKey() + " = " + relations2.getValue());
-					  }
-				}
-				*/
-			
 			parser.createCabinets();
 			System.out.println("");
 
-			
-	//		Solution solution = new Solution(frequencyRelations, parser.getCabinets());
-			
-			//ArrayList<String> randomSetOut = new ArrayList<String>();
-		//	ArrayList<String> random = functions.cabinetArrangement(new ArrayList<String>(parser.getCabinets()), randomSetOut);
-		//	System.out.println(random);
-			
-			
-			//System.out.println("path: " + functions.countPath(random, frequencyRelations));
-
-			Population pop = new Population(frequencyRelations);
-			pop.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 6);
-		//	System.out.println("averagePath: " + pop.countAveragePath());
+			Population pop = new Population(frequencyRelations, parser.getCabinets());
+			pop.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 720);
+			double averagePath = pop.countAveragePath();
+		//	System.out.println("Average path: " + averagePath);
 			
 			for(Solution sol : pop.getPopulation()) {
-			//	System.out.print(sol.getPossibleSolution() + " ");
-				pop.cloningFactor(sol, pop.countAveragePath());
-			//	System.out.print(" " + sol.getCloningFactor() + "\n");
+				pop.cloningFactor(sol, averagePath);
 			}
 			pop.sort();
-			pop.print();
+		//	pop.print();
+			
+			Population population1 = new Population(frequencyRelations, parser.getCabinets());
+			population1.createSelectedPopulation(pop, 600);
 	
+			
+		}
+		
+		public void printFrequencyRelations(	HashMap<String, HashMap<String, Integer>> frequencyRelations) {
+			
+
+			Iterator<Entry<String, HashMap<String, Integer>>> iter = frequencyRelations.entrySet().iterator();
+			Map.Entry<String, HashMap<String, Integer>> relations;
+			
+	        System.out.println("");
+
+	        int number = 0;
+	        
+			while(iter.hasNext()) {
+				number++;
+				if(number == 7) {
+					System.out.println("");
+				}
+		        relations = (Map.Entry<String, HashMap<String, Integer>>)iter.next();
+				
+		        
+				  Iterator<Entry<String, Integer>> innerIterator = frequencyRelations.get(relations.getKey()).entrySet().iterator(); 
+				  Map.Entry<String, Integer> relations2;
+				  
+				  while(innerIterator.hasNext()) {
+					  relations2 = innerIterator.next();
+
+					  System.out.println(relations.getKey() + "-" + relations2.getKey() + " = " + relations2.getValue());
+				  }
+			}
 			
 		}
 		

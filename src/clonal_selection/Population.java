@@ -1,14 +1,10 @@
 package clonal_selection;
 
 import java.util.List;
-
-import java.util.Iterator;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Comparator;
 
 
 //class that creates a population of solutions
@@ -16,8 +12,17 @@ public class Population {
 			
 	private ArrayList<Solution> population;
 	private HashMap<String, HashMap<String, Integer>> relations;
+	private List<String> cabinetArrangement;
 	
 		
+	
+	
+	public Population(HashMap<String, HashMap<String, Integer>> relations, List<String> cabinetArrangement) {
+		population = new ArrayList<Solution>();
+		this.relations = relations;
+		this.cabinetArrangement = cabinetArrangement;
+	}
+	
 	public ArrayList<Solution> getPopulation() {
 		return population;
 	}
@@ -26,28 +31,27 @@ public class Population {
 		this.population = population;
 	}
 	
-	public Population(HashMap<String, HashMap<String, Integer>> relations ) {
-		population = new ArrayList<Solution>();
-		this.relations = relations;
 
-		
+
+	public List<String> getCabinetArrangement() {
+		return cabinetArrangement;
+	}
+
+	public void setCabinetArrangement(List<String> cabinetArrangement) {
+		this.cabinetArrangement = cabinetArrangement;
 	}
 
 	public void createRandomPopulation(List<String> cabinetArrangement, int populationSize){
 		
 		int size = 0;
-		 boolean ifContinue = true;
 		List<ArrayList<String>> added = new ArrayList<ArrayList<String>>();
 		
 		Solution solution = new Solution(relations, cabinetArrangement);
 		solution.cabinetArrangement(new ArrayList<>(solution.getCabinets()), new ArrayList<String>());
-		//System.out.println(solution.getPossibleSolution());
-		
-		
-			while(size < populationSize) {
+
+		while(size < populationSize) {
 				
 				if(added.contains(solution.getPossibleSolution())) {
-					//System.out.println("already here: " + solution.getPossibleSolution());
 					solution = new Solution(relations, cabinetArrangement);
 					solution.cabinetArrangement(new ArrayList<>(solution.getCabinets()), new ArrayList<String>());
 					continue;
@@ -56,17 +60,34 @@ public class Population {
 				size++;
 				population.add(solution);
 				added.add(solution.getPossibleSolution());
-			//	System.out.println(solution.getPossibleSolution());
 				
 				solution = new Solution(relations, cabinetArrangement);
 				solution.cabinetArrangement(new ArrayList<>(solution.getCabinets()), new ArrayList<String>());
-				//System.out.println(solution.getPossibleSolution());
 
 			}
 		
 
 		System.out.println("size: " + size);
 		
+	}
+	
+	
+	public void createSelectedPopulation(Population previousPopulation, int populationSize) {
+		
+		int currentSize = 0;
+		int randomPopulationSize;
+		
+		for(Solution solution : previousPopulation.getPopulation()) {
+			if(solution.getCloningFactor() < 1.0) break;
+			population.add(solution);
+			currentSize++;
+		}
+		if(currentSize <= populationSize) {
+			 randomPopulationSize = populationSize - currentSize;
+		}else return;
+		
+		System.out.println("current size: " + currentSize);
+		createRandomPopulation(previousPopulation.getCabinetArrangement(), randomPopulationSize);
 	}
 	
 	//counts the average of results of all the solutions in a population
@@ -82,7 +103,7 @@ public class Population {
 		}
 		averagePath = (double) summedPath / (double) population.size();
 		
-		System.out.println("average path: " + averagePath);
+		//System.out.println("average path: " + averagePath);
 		return averagePath;
 	}
 		
@@ -108,7 +129,7 @@ public class Population {
 		
 		public int compare(Solution solution1, Solution solution2) {     
 			
-		return  Double.compare(solution1.getCloningFactor(), solution2.getCloningFactor());
+		return  Double.compare(solution2.getCloningFactor(), solution1.getCloningFactor());
 
 		}
 	}
