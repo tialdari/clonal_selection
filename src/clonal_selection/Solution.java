@@ -19,6 +19,15 @@ public class Solution {
 	private List<String> cabinets;
 	private int path;
 	
+	public Solution() {
+		frequencyRelations = new HashMap<String, HashMap<String, Integer>>();
+		cloningFactor = 0.0;
+		possibleSolution = new ArrayList<String>();
+		cabinets = new ArrayList<String>();
+		path = 0;
+	
+	}
+	
 
 	public Solution (HashMap<String, HashMap<String, Integer>> frequencyRelations, List<String> cabinets) {
 		this.frequencyRelations = frequencyRelations;
@@ -28,6 +37,17 @@ public class Solution {
 		path = 0;
 	}
 	
+	
+
+	public HashMap<String, HashMap<String, Integer>> getFrequencyRelations() {
+		return frequencyRelations;
+	}
+
+
+	public void setFrequencyRelations(HashMap<String, HashMap<String, Integer>> frequencyRelations) {
+		this.frequencyRelations = frequencyRelations;
+	}
+
 
 	public double getCloningFactor() {
 		return cloningFactor;
@@ -142,15 +162,38 @@ public class Solution {
 		return path;
 	}
 	
+
 	
-	//counts the mutation factor for a path of the given population (averagePath)
-	//and the given individual (givenPath)
-	public int mutationFactor(int averagePath, int givenPath) {
+	//mutates a solution by exchanging places of two cabinets
+	//in order to get a better solution
+	public ArrayList<String> mutate() {
 		
-		int mutationFactor = averagePath / givenPath;
-		return mutationFactor;
+		//mutation is done on the copy of the possible solution
+		//from the given solution class
+		ArrayList<String> mutation = new ArrayList<String>(possibleSolution);
+		
+		//we choose random indexes
+		Random r = new Random();
+		
+		int index1 = r.nextInt(mutation.size() - 1);
+		int index2 = r.nextInt(mutation.size() - 1);
+		
+		//and ensure they're not the same index
+		while(index1 == index2) {
+			index2 =  r.nextInt(mutation.size() - 1);
+		}
+		
+		//switch the places
+		String cabinet1 = mutation.get(index1);
+		String cabinet2 = mutation.get(index2);
+		String temporary = cabinet1;
+		
+		mutation.set(index1, cabinet2);
+		mutation.set(index2, temporary);
+		
+		return mutation;
+
 	}
-	
 	
 	
 }

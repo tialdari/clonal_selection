@@ -28,7 +28,8 @@ public class Main {
 
 			//create the initial population (random solutions)
 			Population randomPopulation = new Population(frequencyRelations, parser.getCabinets());
-			randomPopulation.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 720);
+			randomPopulation.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 24);
+			
 			System.out.print("first population: \n");
 			randomPopulation.print();
 			
@@ -37,11 +38,11 @@ public class Main {
 			//create a next population out of selected solution from the initial population
 			//complemented by random solutions
 			Population selectedPopulation = new Population(frequencyRelations, parser.getCabinets());
-			selectedPopulation.createSelectedPopulation(randomPopulation, 720);
+			selectedPopulation.createSelectedPopulation(randomPopulation, 24);
+			
 			System.out.print("second population: \n");
 			selectedPopulation.print();
 			
-		
 		
 		}
 		

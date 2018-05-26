@@ -174,8 +174,8 @@ public class Parser {
 			}
 		}
 		
-		//creates a list of cabinets indications - letters 
-		//(the number of cabinets is the matrix rank)
+		//creates a list of cabinets indications (which are letters) 
+		//the number of cabinets is the matrix rank
 		public void createCabinets() {
 			
 			List<String> demoCabinets = new ArrayList<String>();

@@ -84,17 +84,17 @@ public class Population {
 				
 				solution = new Solution(relations, cabinetArrangement);
 				solution.cabinetArrangement(new ArrayList<>(solution.getCabinets()), new ArrayList<String>());
-				
-				if(size == populationSize) {
-					
-					//count the average path when the population is already created
-					countAveragePath();
-					
-					//count and assign a cloning factor for all the solutions
-					cloningFactor();
-				}
 
-			}
+		}
+		
+		if(size == populationSize) {
+			System.out.println("average path counting");
+			//count the average path when the population is already created
+			countAveragePath();
+			
+			//count and assign a cloning factor for all the solutions
+			cloningFactor();
+		}
 	}
 	
 	//creates a new population selecting better solutions from a given population
@@ -102,6 +102,9 @@ public class Population {
 		
 		int currentSize = 0;
 		int randomPopulationSize;
+		Solution mutant;
+		List<ArrayList<String>> added = new ArrayList<ArrayList<String>>();
+
 		
 		//copy solutions from the previous population until the cloning factor is bigger than 1
 		for(Solution solution : previousPopulation.getPopulation()) {
@@ -111,9 +114,33 @@ public class Population {
 			//as indicates the cloning factor
 			//eg. if cloning factor is 2 -> 3 copies of this solution will go to the next population
 			for(int i = 0; i <= (int) solution.getCloningFactor(); i++) {
-				population.add(solution);
+				//if we get a complete population by cloning the solution from the previous population
+				//leave the method
+				if(currentSize == populationSize) break;
+				
+				//we create a mutation of each clone
+				//if mutation is less efficient or already exists in the population we discard it
+				mutant = new Solution(solution.getFrequencyRelations(), solution.getCabinets());
+				ArrayList<String> mutantSol = solution.mutate();
+				mutant.setPossibleSolution(mutantSol);
+				mutant.setPath(mutant.countPath(mutant.getPossibleSolution()));
+				
+				//System.out.println("M: " + mutantSol + " " + mutant.getPath() );
+			//	System.out.println("S: " + solution.getPossibleSolution() + " " + solution.getPath() );
+
+
+				if(mutant.getPath() >=  solution.getPath() || added.contains(mutant.getPossibleSolution()) ) {
+					population.add(solution);
+					added.add(solution.getPossibleSolution());
+					System.out.println("original");
+				}else {
+					population.add(mutant);
+					added.add(mutant.getPossibleSolution());
+					System.out.println("mutant");
+				}
+			
+				currentSize++;
 			}
-			currentSize++;
 		}
 		
 		//count the number of random solutions that should be added
@@ -156,7 +183,6 @@ public class Population {
 	}
 		
 	
-		
 	
 	//enables sorting a population by a cloning factor
 	public static class SolutionComparator implements Comparator<Solution>{
