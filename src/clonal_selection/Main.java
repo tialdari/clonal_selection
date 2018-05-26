@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Scanner;
 
 import data.Parser;
 
@@ -14,6 +15,11 @@ import java.util.Iterator;
 public class Main {
 
 		public static void main(String [] args) {
+			
+			//input variables: 
+			//-population size (30 - 1000)
+			//-iteration num (eg. 10)
+			//
 			
 			System.out.println("Clonal selection algorytm");
 			
@@ -30,20 +36,58 @@ public class Main {
 			Population randomPopulation = new Population(frequencyRelations, parser.getCabinets());
 			randomPopulation.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 24);
 			
-			System.out.print("first population: \n");
-			randomPopulation.print();
+			System.out.print("first population: \n" + "best solution: " + randomPopulation.getBestSolution().getPossibleSolution() +  " " + randomPopulation.getBestSolution().getPath() + "\n");
 			
-			System.out.println("");
 			
-			//create a next population out of selected solution from the initial population
-			//complemented by random solutions
-			Population selectedPopulation = new Population(frequencyRelations, parser.getCabinets());
-			selectedPopulation.createSelectedPopulation(randomPopulation, 24);
+			Scanner sc = new Scanner(System.in);
+			int populationSize = 0;
+			int iterationNum = 0;
+			boolean ifContinue = true;
+			String answer;
 			
-			System.out.print("second population: \n");
-			selectedPopulation.print();
+			while(populationSize < 30 || populationSize > 1000) {
+				System.out.println("\nChoose size between 30 and 1000: ");
+				populationSize = sc.nextInt();
+			}
 			
-		
+			while(iterationNum <= 0) {
+				System.out.println("Choose an iteration num above 0: ");
+				iterationNum = sc.nextInt();
+			}
+			
+			Population selectedPopulation = randomPopulation;
+			Population previousPopulation = randomPopulation;
+			
+			while(ifContinue) {
+				
+				for(int i = 0; i < iterationNum; i ++) {
+					System.out.println("");
+	
+					//create a next population out of selected solution from the initial population
+					//complemented by random solutions
+					selectedPopulation = new Population(frequencyRelations, parser.getCabinets());
+					selectedPopulation.createSelectedPopulation(previousPopulation, 24);
+					selectedPopulation.print();
+					previousPopulation = selectedPopulation;
+					
+				}	
+				System.out.println("Best solution: " + selectedPopulation.getBestSolution().getPossibleSolution() + " " + selectedPopulation.getBestSolution().getPath());
+				System.out.println("Do you want to continue? yes -> 1, no -> 0");
+				answer = sc.next();
+				
+				while(true) {
+					if(answer.equals("0")) {
+						ifContinue = false;
+						break;
+					}else if(answer.equals("1")) {
+						System.out.println("Next " + iterationNum + " iterations");
+						ifContinue = true;
+						break;
+					}else {
+						System.out.println("No such option, choose 1 or 0");
+					}
+				}
+			}
 		}
 		
 		//a method for printing frequency relations between cabinets

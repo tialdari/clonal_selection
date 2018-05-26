@@ -14,12 +14,14 @@ public class Population {
 	private HashMap<String, HashMap<String, Integer>> relations;
 	private List<String> cabinetArrangement;
 	private double averagePath;
+	private Solution bestSolution;
 	
 	public Population(HashMap<String, HashMap<String, Integer>> relations, List<String> cabinetArrangement) {
 		population = new ArrayList<Solution>();
 		this.relations = relations;
 		this.cabinetArrangement = cabinetArrangement;
 		averagePath = 0.0;
+		bestSolution = null;
 	}
 	
 	public ArrayList<Solution> getPopulation() {
@@ -46,6 +48,18 @@ public class Population {
 
 	public void setAveragePath(double averagePath) {
 		this.averagePath = averagePath;
+	}
+
+	
+	public Solution getBestSolution() {
+		
+		bestSolution = population.get(0);
+		
+		return bestSolution;
+	}
+
+	public void setBestSolution(Solution bestSolution) {
+		this.bestSolution = bestSolution;
 	}
 
 	//creates a random population
@@ -88,7 +102,6 @@ public class Population {
 		}
 		
 		if(size == populationSize) {
-			System.out.println("average path counting");
 			//count the average path when the population is already created
 			countAveragePath();
 			
@@ -132,11 +145,11 @@ public class Population {
 				if(mutant.getPath() >=  solution.getPath() || added.contains(mutant.getPossibleSolution()) ) {
 					population.add(solution);
 					added.add(solution.getPossibleSolution());
-					System.out.println("original");
+					//System.out.println("original");
 				}else {
 					population.add(mutant);
 					added.add(mutant.getPossibleSolution());
-					System.out.println("mutant");
+					//System.out.println("mutant");
 				}
 			
 				currentSize++;
@@ -204,8 +217,9 @@ public class Population {
 		
 		sort();
 		for(Solution sol : population) {
-			System.out.println(sol.getPossibleSolution() + " " + sol.getCloningFactor());
+			System.out.println(sol.getPossibleSolution() + " " + sol.getPath());
 		}
 	}
+	
 	
 }
