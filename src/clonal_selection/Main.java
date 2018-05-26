@@ -16,42 +16,37 @@ public class Main {
 		public static void main(String [] args) {
 			
 			System.out.println("Clonal selection algorytm");
+			
 			Parser parser = new Parser("test.csv");
 			parser.createRelations(parser.read(), parser.getDataSize());
-			HashMap<String, HashMap<String, Integer>> frequencyRelations = parser.getFrequencyRelations();
-			
 			parser.createCabinets();
+			
+			//create a variable to hold the frequency relations created in the parser
+			HashMap<String, HashMap<String, Integer>> frequencyRelations = parser.getFrequencyRelations();
+
 			System.out.println("");
 
-			Population pop = new Population(frequencyRelations, parser.getCabinets());
-			pop.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 720);
-			double averagePath = pop.countAveragePath();
-		//	System.out.println("Average path: " + averagePath);
+			//create the initial population (random solutions)
+			Population randomPopulation = new Population(frequencyRelations, parser.getCabinets());
+			randomPopulation.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 720);
+			System.out.print("first population: \n");
+			randomPopulation.print();
 			
-			for(Solution sol : pop.getPopulation()) {
-				pop.cloningFactor(sol, averagePath);
-			}
-			pop.sort();
-			//pop.print();
+			System.out.println("");
 			
-			Population population1 = new Population(frequencyRelations, parser.getCabinets());
-			population1.createSelectedPopulation(pop, 600);
-			double averagePath1 = population1.countAveragePath();
-			for(Solution sol : population1.getPopulation()) {
-				population1.cloningFactor(sol, averagePath1);
-			}
-			population1.sort();
-
-			for(Solution sol : population1.getPopulation()) {
-				//System.out.println(sol.getPossibleSolution() + " " + sol.getCloningFactor());
-			}
-			System.out.println("size : " + population1.getPopulation().size());
-			population1.print();
-
-	
+			//create a next population out of selected solution from the initial population
+			//complemented by random solutions
+			Population selectedPopulation = new Population(frequencyRelations, parser.getCabinets());
+			selectedPopulation.createSelectedPopulation(randomPopulation, 720);
+			System.out.print("second population: \n");
+			selectedPopulation.print();
 			
+		
+		
 		}
 		
+		//a method for printing frequency relations between cabinets
+		//basically a nested hashMap representation of the input matrix
 		public void printFrequencyRelations(	HashMap<String, HashMap<String, Integer>> frequencyRelations) {
 			
 

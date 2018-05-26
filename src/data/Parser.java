@@ -27,6 +27,7 @@ public class Parser {
 			this.csvFileName = csvFileName;
 			dataSize = 0;
 			frequencyRelations = new HashMap<String, HashMap<String, Integer>>();
+			
 		}
 		
 	
@@ -92,7 +93,6 @@ public class Parser {
 			
 			int lineLength = (int) Math.sqrt(size) - 1;
 			
-			//creates an array of size of a single line from input matrix(number of different cabinets)
 			int omitCounter = 0;
 			int counter1 = 0;
 			int counter2 = 0;
@@ -101,14 +101,27 @@ public class Parser {
 			String letter1 = String.valueOf(leter1);
 			String letter2 = String.valueOf(leter2);
 			
-			
+			//we iterate over the array of frequencies
 			Iterator<Integer> iterator = numbers.iterator();
 			int frequency = iterator.next();
 			
 			
 			//change it for 2D array!
+			//   l1 l1 l1 		"l1"stands for letter1
+			// l2 x f+  f+		"l2" stands for letter2
+			// l2 f- x  f+	
+			// l2 f- f-  x 		"f" stands for frequency
+			
+			
+			// x's are not in the list
+			//we only read the right triangle of the matrix
+			//because the left one is the same
+			//and it's taken into account in the  add(...) method
+			//f+ are used, f- are omitted
+			
 			while(iterator.hasNext()) {
 				
+			
 				while(counter1 < lineLength) {
 					add(frequencyRelations, letter1, letter2, frequency);
 					counter1++;
@@ -141,10 +154,11 @@ public class Parser {
 		
 		public void add(HashMap<String, HashMap<String, Integer>> frequencyRelations, String letter1, String letter2, int frequency) {
 			
+			//put a new frequency relation to letter1, if letter1 already exists as a key in the hashmap
 			if(frequencyRelations.containsKey(letter1)) {
 	    			frequencyRelations.get(letter1).put(letter2, frequency);
 			}else {
-				//if not, we put a new key(the letter) first
+				//if not, we put a new key(letter1) first
 				frequencyRelations.put(letter1, new HashMap<String, Integer>());
 				frequencyRelations.get(letter1).put(letter2, frequency);
 			}
@@ -160,6 +174,8 @@ public class Parser {
 			}
 		}
 		
+		//creates a list of cabinets indications - letters 
+		//(the number of cabinets is the matrix rank)
 		public void createCabinets() {
 			
 			List<String> demoCabinets = new ArrayList<String>();

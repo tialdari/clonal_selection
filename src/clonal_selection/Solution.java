@@ -3,13 +3,14 @@ package clonal_selection;
 import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 
-
-
-
-//contains functions to count results for the individuals of the given population
+//solution class that contains: 
+//set of cabinets to create a possible cabinet arrangement from
+//a possible cabinet arrangement,
+//value of the arrangement (path),
+//cloning factor needed to determine whether to include or exclude
+//the solution in next populations
 public class Solution {
 	
 	private HashMap<String, HashMap<String, Integer>> frequencyRelations;
@@ -17,7 +18,6 @@ public class Solution {
 	private ArrayList<String> possibleSolution;
 	private List<String> cabinets;
 	private int path;
-	
 	
 
 	public Solution (HashMap<String, HashMap<String, Integer>> frequencyRelations, List<String> cabinets) {
@@ -27,8 +27,6 @@ public class Solution {
 		possibleSolution = new ArrayList<String>();
 		path = 0;
 	}
-	
-	
 	
 
 	public double getCloningFactor() {
