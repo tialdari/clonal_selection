@@ -21,7 +21,6 @@ public class Main {
 			//-iteration num (eg. 10)
 			//
 			
-			System.out.println("Clonal selection algorytm");
 			
 			Parser parser = new Parser("test.csv");
 			parser.createRelations(parser.read(), parser.getDataSize());
@@ -31,7 +30,9 @@ public class Main {
 			HashMap<String, HashMap<String, Integer>> frequencyRelations = parser.getFrequencyRelations();
 
 			System.out.println("");
-
+			
+			
+			
 			//create the initial population (random solutions)
 			Population randomPopulation = new Population(frequencyRelations, parser.getCabinets());
 			randomPopulation.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 24);
@@ -85,6 +86,7 @@ public class Main {
 						break;
 					}else {
 						System.out.println("No such option, choose 1 or 0");
+						answer = sc.next();
 					}
 				}
 			}
@@ -121,5 +123,6 @@ public class Main {
 			}
 			
 		}
+		
 		
 }

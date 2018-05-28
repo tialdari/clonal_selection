@@ -119,48 +119,48 @@ public class Solution {
 	
 
 	//counts the overall road to cross between cabinets for the given solution
-	public int countPath(List<String> solution) {
-		
-		int path = 0;
-		int distance = 1;
-		int cabinet1Index = 0;
-		int cabinet2Index = 1;
-		String letter1;
-		String letter2;
-		int frequency;
-		int currentPath = 0;
+		public int countPath(List<String> solution) {
+			
+			int path = 0;
+			int distance = 1;
+			int cabinet1Index = 0;
+			int cabinet2Index = 1;
+			String letter1;
+			String letter2;
+			int frequency;
+			int currentPath = 0;
 
-		//first we count the path between first cabinet and all the other, 
-		//then the second and all the others minus the first one
-		//then between the third one and all the others
-		//and so on
-		while(cabinet1Index <= solution.size() - 2) {
-			
-			letter1 = solution.get(cabinet1Index);
-			letter2 = solution.get(cabinet2Index);
-			//frequency is obtained from the hashmap that contains all the frequencies between pairs of cabinets
-			//this hashmap is created in the parser class
-			frequency = frequencyRelations.get(letter1).get(letter2).intValue();
-			
-			//current path is only to check if the calculations are correct
-			currentPath = distance * frequency;
-			path += distance * frequency;
-		//	System.out.println(letter1 + letter2 + " current Path: " + currentPath);
-			cabinet2Index++;
-			distance++;
-			
-			//when the second index goes to the end of the line
-			//we increment the first index and resent the second one
-			if(cabinet2Index == solution.size()) {
-				cabinet1Index++;
-				cabinet2Index = cabinet1Index + 1;
-				distance = 1;
+			//first we count the path between first cabinet and all the other, 
+			//then the second and all the others minus the first one
+			//then between the third one and all the others
+			//and so on
+			while(cabinet1Index <= solution.size() - 2) {
+				
+				letter1 = solution.get(cabinet1Index);
+				letter2 = solution.get(cabinet2Index);
+				//frequency is obtained from the hashmap that contains all the frequencies between pairs of cabinets
+				//this hashmap is created in the parser class
+				frequency = frequencyRelations.get(letter1).get(letter2).intValue();
+				
+				//current path is only to check if the calculations are correct
+				currentPath = distance * frequency;
+				path += distance * frequency;
+			//	System.out.println(letter1 + letter2 + " current Path: " + currentPath);
+				cabinet2Index++;
+				distance++;
+				
+				//when the second index goes to the end of the line
+				//we increment the first index and resent the second one
+				if(cabinet2Index == solution.size()) {
+					cabinet1Index++;
+					cabinet2Index = cabinet1Index + 1;
+					distance = 1;
+				}
 			}
+			
+			setPath(path);
+			return path;
 		}
-		
-		setPath(path);
-		return path;
-	}
 	
 
 	
