@@ -67,7 +67,8 @@ public class Main {
 					//create a next population out of selected solution from the initial population
 					//complemented by random solutions
 					selectedPopulation = new Population(frequencyRelations, parser.getCabinets());
-					selectedPopulation.createSelectedPopulation(previousPopulation, populationSize);
+					selectedPopulation.createSelectedPopulation(previousPopulation, populationSize, 40.0);
+					selectedPopulation.sort();
 					selectedPopulation.print();
 					previousPopulation = selectedPopulation;
 					
