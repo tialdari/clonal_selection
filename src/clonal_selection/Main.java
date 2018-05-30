@@ -22,7 +22,7 @@ public class Main {
 			//
 			
 			
-			Parser parser = new Parser("test.csv");
+			Parser parser = new Parser("test_1.csv");
 			parser.createRelations(parser.read(), parser.getDataSize());
 			parser.createCabinets();
 			
@@ -30,15 +30,6 @@ public class Main {
 			HashMap<String, HashMap<String, Integer>> frequencyRelations = parser.getFrequencyRelations();
 
 			System.out.println("");
-			
-			
-			
-			//create the initial population (random solutions)
-			Population randomPopulation = new Population(frequencyRelations, parser.getCabinets());
-			randomPopulation.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 24);
-			
-			System.out.print("first population: \n" + "best solution: " + randomPopulation.getBestSolution().getPossibleSolution() +  " " + randomPopulation.getBestSolution().getPath() + "\n");
-			
 			
 			Scanner sc = new Scanner(System.in);
 			int populationSize = 0;
@@ -51,11 +42,20 @@ public class Main {
 				populationSize = sc.nextInt();
 			}
 			
+			//create the initial population (random solutions)
+			Population randomPopulation = new Population(frequencyRelations, parser.getCabinets());
+			randomPopulation.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 1000);
+			
+			System.out.print("first population: \n" + "best solution: " + randomPopulation.getBestSolution().getPossibleSolution() +  " " + randomPopulation.getBestSolution().getPath() + "\n");
+			
+	
+			
 			while(iterationNum <= 0) {
 				System.out.println("Choose an iteration num above 0: ");
 				iterationNum = sc.nextInt();
 			}
 			
+					
 			Population selectedPopulation = randomPopulation;
 			Population previousPopulation = randomPopulation;
 			
@@ -67,7 +67,7 @@ public class Main {
 					//create a next population out of selected solution from the initial population
 					//complemented by random solutions
 					selectedPopulation = new Population(frequencyRelations, parser.getCabinets());
-					selectedPopulation.createSelectedPopulation(previousPopulation, 24);
+					selectedPopulation.createSelectedPopulation(previousPopulation, 1000);
 					selectedPopulation.print();
 					previousPopulation = selectedPopulation;
 					

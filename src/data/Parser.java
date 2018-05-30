@@ -18,7 +18,7 @@ public class Parser {
 		private List<String> cabinets;
 		
 		public Parser() {
-			csvFileName = "z5data.csv";
+			csvFileName = "test_1.csv";
 			dataSize = 0;
 			frequencyRelations = new HashMap<String, HashMap<String, Integer>>();
 		}
