@@ -34,6 +34,7 @@ public class Main {
 			Scanner sc = new Scanner(System.in);
 			int populationSize = 0;
 			int iterationNum = 0;
+			double percentage = 0;
 			boolean ifContinue = true;
 			String answer;
 			
@@ -55,6 +56,11 @@ public class Main {
 				iterationNum = sc.nextInt();
 			}
 			
+			while(percentage <= 0.0) {
+				System.out.println("Choose an percentage of the previous population size that should be in the next one: ");
+				percentage = sc.nextDouble();
+			}
+			
 					
 			Population selectedPopulation = randomPopulation;
 			Population previousPopulation = randomPopulation;
@@ -67,7 +73,7 @@ public class Main {
 					//create a next population out of selected solution from the initial population
 					//complemented by random solutions
 					selectedPopulation = new Population(frequencyRelations, parser.getCabinets());
-					selectedPopulation.createSelectedPopulation(previousPopulation, populationSize, 40.0);
+					selectedPopulation.createSelectedPopulation(previousPopulation, populationSize, percentage);
 					selectedPopulation.sort();
 					selectedPopulation.print();
 					previousPopulation = selectedPopulation;

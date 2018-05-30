@@ -114,7 +114,7 @@ public class Population {
 	//creates a new population selecting better solutions from a given population
 	public void createSelectedPopulation(Population previousPopulation, int populationSize, double perc) {
 		
-		int intendedSize = (int)(populationSize * perc/1001);
+		int intendedSize = (int)(populationSize * perc/100);
 		System.out.println("intended size: " + intendedSize ) ;
 		int currentSize = 0;
 		int randomPopulationSize;
