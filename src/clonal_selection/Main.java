@@ -44,7 +44,11 @@ public class Main {
 			
 			//create the initial population (random solutions)
 			Population randomPopulation = new Population(frequencyRelations, parser.getCabinets());
+<<<<<<< HEAD
 			randomPopulation.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), 1000);
+=======
+			randomPopulation.createRandomPopulation(new ArrayList<String>(parser.getCabinets()), populationSize);
+>>>>>>> develop
 			
 			System.out.print("first population: \n" + "best solution: " + randomPopulation.getBestSolution().getPossibleSolution() +  " " + randomPopulation.getBestSolution().getPath() + "\n");
 			
@@ -67,7 +71,11 @@ public class Main {
 					//create a next population out of selected solution from the initial population
 					//complemented by random solutions
 					selectedPopulation = new Population(frequencyRelations, parser.getCabinets());
+<<<<<<< HEAD
 					selectedPopulation.createSelectedPopulation(previousPopulation, 1000);
+=======
+					selectedPopulation.createSelectedPopulation(previousPopulation, populationSize);
+>>>>>>> develop
 					selectedPopulation.print();
 					previousPopulation = selectedPopulation;
 					
