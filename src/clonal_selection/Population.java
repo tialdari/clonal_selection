@@ -112,8 +112,10 @@ public class Population {
 	}
 	
 	//creates a new population selecting better solutions from a given population
-	public void createSelectedPopulation(Population previousPopulation, int populationSize) {
+	public void createSelectedPopulation(Population previousPopulation, int populationSize, double perc) {
 		
+		int intendedSize = (int)(populationSize * perc/100);
+		System.out.println("intended size: " + intendedSize ) ;
 		int currentSize = 0;
 		int randomPopulationSize;
 		Solution mutant;
@@ -130,7 +132,7 @@ public class Population {
 			for(int i = 0; i <= (int) solution.getCloningFactor(); i++) {
 				//if we get a complete population by cloning the solution from the previous population
 				//leave the method
-				if(currentSize == populationSize) break;
+				if(currentSize == intendedSize) break;
 				
 				//we create a mutation of each clone
 				//if mutation is less efficient or already exists in the population we discard it
@@ -171,6 +173,7 @@ public class Population {
 	//counts the cloning factor for a solution in a population
 		public void cloningFactor() {
 			
+			sort();
 			double factorNum = 0.0; 
 			
 			for(Solution sol : population) {
@@ -216,7 +219,6 @@ public class Population {
 	//prints all the solutions of the population sorted
 	public void print() {
 		
-		sort();
 		for(Solution sol : population) {
 			System.out.println(sol.getPossibleSolution() + " " + sol.getPath());
 		}
